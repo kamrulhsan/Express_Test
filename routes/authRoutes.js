@@ -3,9 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const { userRegistrationValidators, validate } = require('../validators/userRegistrationValidator');
 require('dotenv').config();
 
-router.post('/register', async (req, res) => {
+router.post('/register', userRegistrationValidator, validate, async (req, res) => {
     try {
         const { name, email, password, role, age } = req.body;
         const requiredFields = ['name', 'email', 'password', 'role'];
